@@ -4,7 +4,7 @@
  */
 
 module.exports = {
-  testEnviromen: "node",
+  testEnvironment: "node",
 
   collectCoverage: true,
 
