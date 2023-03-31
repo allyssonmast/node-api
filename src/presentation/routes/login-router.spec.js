@@ -3,6 +3,14 @@ const MissingParamError = require("../helpers/missing-param-error");
 const UnAuthorizedError = require("../helpers/unAuthorized-error");
 
 const makeSut = () => {
+  const authUseCaseSpy = makeAuthUseCase();
+  authUseCaseSpy.accessToken = 'valid_token'
+  const sut = new LoginRouter(authUseCaseSpy);
+
+  return { sut, authUseCaseSpy };
+};
+
+const makeAuthUseCase = () => {
   class AuthusecaseSpy {
     auth(email, password) {
       this.email = email;
@@ -10,12 +18,17 @@ const makeSut = () => {
       return this.accessToken;
     }
   }
-  const authUseCaseSpy = new AuthusecaseSpy();
-  authUseCaseSpy.accessToken = 'valid_token'
-  const sut = new LoginRouter(authUseCaseSpy);
+  return new AuthusecaseSpy()
+}
 
-  return { sut, authUseCaseSpy };
-};
+const makeAuthUseCaseWithError = () => {
+  class AuthusecaseSpy {
+    auth(email, password) {
+      throw new Error()
+    }
+  }
+  return new AuthusecaseSpy()
+}
 
 describe("Login Router", () => {
   test("Shold return 400 if no email provided", () => {
@@ -57,6 +70,7 @@ describe("Login Router", () => {
 
     expect(httpResponse.statusCode).toBe(500);
   });
+
   test("Shold call Authusecase with correct params", () => {
     const { sut, authUseCaseSpy } = makeSut();
     const httpRequest = {
@@ -71,6 +85,7 @@ describe("Login Router", () => {
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email);
     expect(authUseCaseSpy.password).toBe(httpRequest.body.password);
   });
+
 
   test("Shold return 401 when invalid credentials are provided", () => {
     const { sut, authUseCaseSpy } = makeSut();
@@ -120,6 +135,38 @@ describe("Login Router", () => {
   test("Shold return 500 if no authUseCase has no auth", () => {
     class AuthusecaseSpy { }
     const authUseCaseSpy = new AuthusecaseSpy();
+    const sut = new LoginRouter(authUseCaseSpy);
+    const httpRequest = {
+      body: {
+        email: "valided@email.com",
+        password: "valided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(500);
+  });
+
+  test("Shold return 500 if no authUseCase has no auth", () => {
+    class AuthusecaseSpy { }
+    const authUseCaseSpy = new AuthusecaseSpy();
+    const sut = new LoginRouter(authUseCaseSpy);
+    const httpRequest = {
+      body: {
+        email: "valided@email.com",
+        password: "valided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(500);
+  });
+
+  test("Shold throw if any dependency throw", () => {
+
+    const authUseCaseSpy = makeAuthUseCaseWithError();
     const sut = new LoginRouter(authUseCaseSpy);
     const httpRequest = {
       body: {
