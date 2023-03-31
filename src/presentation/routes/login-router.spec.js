@@ -2,6 +2,7 @@ const LoginRouter = require('./login-router')
 const MissingParamError = require('../helpers/missing-param-error')
 const UnAuthorizedError = require('../helpers/unAuthorized-error')
 const InvalidParamError = require('../helpers/invalid-param-error')
+const ServerError = require('../helpers/server-error')
 
 const makeSut = () => {
   const authUseCaseSpy = makeAuthUseCase()
@@ -204,5 +205,22 @@ describe('Login Router', () => {
 
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new InvalidParamError('email'))
+  })
+
+  test('Shold return 500 if EmailValidator has no isValid', async () => {
+    const authUseCaseSpy = makeAuthUseCase()
+    const sut = new LoginRouter(authUseCaseSpy, {})
+
+    const httpRequest = {
+      body: {
+        email: 'valided@email.com',
+        password: 'valided'
+      }
+    }
+
+    const httpResponse = await sut.route(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
   })
 })
