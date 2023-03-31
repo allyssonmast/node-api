@@ -1,29 +1,28 @@
-const HttpResponse = require("../helpers/http-reponse");
+const HttpResponse = require('../helpers/http-reponse')
 
 class LoginRouter {
-  constructor(authUseCase) {
-    this.authUseCase = authUseCase;
+  constructor (authUseCase) {
+    this.authUseCase = authUseCase
   }
-  route(httpRequest) {
+
+  async route (httpRequest) {
     try {
-      const { email, password } = httpRequest.body;
+      const { email, password } = httpRequest.body
       if (!email) {
-        return HttpResponse.badRequest("email");
+        return HttpResponse.badRequest('email')
       }
       if (!password) {
-        return HttpResponse.badRequest("password");
+        return HttpResponse.badRequest('password')
       }
-      const accessToken = this.authUseCase.auth(email, password);
+      const accessToken = await this.authUseCase.auth(email, password)
 
-      if (!accessToken)
-        return HttpResponse.unAuthorized();
+      if (!accessToken) { return HttpResponse.unAuthorized() }
 
       return HttpResponse.ok({ accessToken })
     } catch (error) {
-      return HttpResponse.serverError();
+      return HttpResponse.serverError()
     }
-
   }
 }
 
-module.exports = LoginRouter;
+module.exports = LoginRouter
