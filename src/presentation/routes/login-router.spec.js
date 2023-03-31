@@ -15,6 +15,7 @@ const makeSut = () => {
 const makeEmailValidator = () => {
   class EmailValidatorSpy {
     isValid (email) {
+      this.email = email
       return this.isEmailValid
     }
   }
@@ -40,6 +41,14 @@ const makeAuthUseCaseWithError = () => {
     }
   }
   return new AuthusecaseSpy()
+}
+const makeEmailValidatorSpyWithError = () => {
+  class EmailValidatorSpy {
+    isValid () {
+      throw new Error()
+    }
+  }
+  return new EmailValidatorSpy()
 }
 
 describe('Login Router', () => {
@@ -222,5 +231,38 @@ describe('Login Router', () => {
 
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Shold return 500 if EmailValidator throw error', async () => {
+    const authUseCaseSpy = makeAuthUseCase()
+    const emailValidatorSpy = makeEmailValidatorSpyWithError()
+    const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
+
+    const httpRequest = {
+      body: {
+        email: 'valided@email.com',
+        password: 'valided'
+      }
+    }
+
+    const httpResponse = await sut.route(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Shold call EmailValidator with correct email', async () => {
+    const { sut, emailValidatorSpy } = makeSut()
+
+    const httpRequest = {
+      body: {
+        email: 'valided@email.com',
+        password: 'valided'
+      }
+    }
+
+    await sut.route(httpRequest)
+
+    expect(emailValidatorSpy.email).toBe(httpRequest.body.email)
   })
 })
