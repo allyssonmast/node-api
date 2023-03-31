@@ -7,9 +7,11 @@ const makeSut = () => {
     auth(email, password) {
       this.email = email;
       this.password = password;
+      return this.accessToken;
     }
   }
   const authUseCaseSpy = new AuthusecaseSpy();
+  authUseCaseSpy.accessToken = 'valid_token'
   const sut = new LoginRouter(authUseCaseSpy);
 
   return { sut, authUseCaseSpy };
@@ -71,7 +73,8 @@ describe("Login Router", () => {
   });
 
   test("Shold return 401 when invalid credentials are provided", () => {
-    const { sut } = makeSut();
+    const { sut, authUseCaseSpy } = makeSut();
+    authUseCaseSpy.accessToken = null
     const httpRequest = {
       body: {
         email: "invalided@email.com",
@@ -84,6 +87,22 @@ describe("Login Router", () => {
     expect(httpResponse.statusCode).toBe(401);
     expect(httpResponse.body).toEqual(new UnAuthorizedError());
   });
+
+  test("Shold return 200 when valid credentials are provided", () => {
+    const { sut, authUseCaseSpy } = makeSut();
+    const httpRequest = {
+      body: {
+        email: "valided@email.com",
+        password: "valided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(200);
+    expect(httpResponse.body.accessToken).toEqual(authUseCaseSpy.accessToken);
+  });
+
   test("Shold return 500 if no authUseCase is provided", () => {
     const sut = new LoginRouter();
     const httpRequest = {
@@ -99,7 +118,7 @@ describe("Login Router", () => {
   });
 
   test("Shold return 500 if no authUseCase has no auth", () => {
-    class AuthusecaseSpy {}
+    class AuthusecaseSpy { }
     const authUseCaseSpy = new AuthusecaseSpy();
     const sut = new LoginRouter(authUseCaseSpy);
     const httpRequest = {

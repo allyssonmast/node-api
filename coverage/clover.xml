@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1680294936826" clover="3.2.0">
-  <project timestamp="1680294936826" name="All files">
-    <metrics statements="63" coveredstatements="63" conditionals="15" coveredconditionals="15" methods="7" coveredmethods="7" elements="85" coveredelements="85" complexity="0" loc="63" ncloc="63" packages="2" files="4" classes="4"/>
+<coverage generated="1680297132736" clover="3.2.0">
+  <project timestamp="1680297132736" name="All files">
+    <metrics statements="72" coveredstatements="72" conditionals="19" coveredconditionals="19" methods="8" coveredmethods="8" elements="99" coveredelements="99" complexity="0" loc="72" ncloc="72" packages="2" files="4" classes="4"/>
     <package name="helpers">
-      <metrics statements="34" coveredstatements="34" conditionals="5" coveredconditionals="5" methods="5" coveredmethods="5"/>
+      <metrics statements="40" coveredstatements="40" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
       <file name="http-reponse.js" path="C:\Users\AllyMast\StudioProjects\node-api\src\presentation\helpers\http-reponse.js">
-        <metrics statements="22" coveredstatements="22" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <metrics statements="28" coveredstatements="28" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -27,7 +27,13 @@
         <line num="19" count="2" type="stmt"/>
         <line num="20" count="2" type="stmt"/>
         <line num="21" count="2" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
       </file>
       <file name="missing-param-error.js" path="C:\Users\AllyMast\StudioProjects\node-api\src\presentation\helpers\missing-param-error.js">
         <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -42,45 +48,48 @@
         <metrics statements="6" coveredstatements="6" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
       </file>
     </package>
     <package name="routes">
-      <metrics statements="29" coveredstatements="29" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
+      <metrics statements="32" coveredstatements="32" conditionals="13" coveredconditionals="13" methods="2" coveredmethods="2"/>
       <file name="login-router.js" path="C:\Users\AllyMast\StudioProjects\node-api\src\presentation\routes\login-router.js">
-        <metrics statements="29" coveredstatements="29" conditionals="10" coveredconditionals="10" methods="2" coveredmethods="2"/>
+        <metrics statements="32" coveredstatements="32" conditionals="13" coveredconditionals="13" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="6" count="8" type="stmt"/>
+        <line num="5" count="9" type="stmt"/>
+        <line num="6" count="9" type="stmt"/>
         <line num="7" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="8" count="8" type="stmt"/>
-        <line num="9" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="11" count="8" type="cond" truecount="1" falsecount="0"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="13" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="9" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="11" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="9" type="cond" truecount="1" falsecount="0"/>
         <line num="14" count="4" type="stmt"/>
-        <line num="15" count="4" type="stmt"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="15" count="4" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="9" type="cond" truecount="1" falsecount="0"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="20" count="8" type="cond" truecount="1" falsecount="0"/>
+        <line num="20" count="9" type="cond" truecount="1" falsecount="0"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="26" count="2" type="stmt"/>
-        <line num="27" count="1" type="stmt"/>
-        <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
+        <line num="23" count="3" type="stmt"/>
+        <line num="24" count="3" type="stmt"/>
+        <line num="25" count="3" type="stmt"/>
+        <line num="26" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
       </file>
     </package>
   </project>
