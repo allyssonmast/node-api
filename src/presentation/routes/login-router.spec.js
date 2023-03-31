@@ -1,5 +1,6 @@
 const LoginRouter = require("./login-router");
 const MissingParamError = require("../helpers/missing-param-error");
+const UnAuthorizedError = require("../helpers/unAuthorized-error");
 
 const makeSut = () => {
   class AuthusecaseSpy {
@@ -67,5 +68,20 @@ describe("Login Router", () => {
 
     expect(authUseCaseSpy.email).toBe(httpRequest.body.email);
     expect(authUseCaseSpy.password).toBe(httpRequest.body.password);
+  });
+
+  test("Shold return 401 when invalid credentials are provided", () => {
+    const { sut } = makeSut();
+    const httpRequest = {
+      body: {
+        email: "invalided@email.com",
+        password: "invalided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(401);
+    expect(httpResponse.body).toEqual(new UnAuthorizedError());
   });
 });
