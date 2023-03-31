@@ -4,12 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --fix",
     "test": "jest --watchAll",
     "test:staged": "jest"
   },
   "standard": {
     "env": [
       "jest"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix",
+      "git add"
     ]
   },
   "author": "",

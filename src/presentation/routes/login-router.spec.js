@@ -84,4 +84,33 @@ describe("Login Router", () => {
     expect(httpResponse.statusCode).toBe(401);
     expect(httpResponse.body).toEqual(new UnAuthorizedError());
   });
+  test("Shold return 500 if no authUseCase is provided", () => {
+    const sut = new LoginRouter();
+    const httpRequest = {
+      body: {
+        email: "valided@email.com",
+        password: "valided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(500);
+  });
+
+  test("Shold return 500 if no authUseCase has no auth", () => {
+    class AuthusecaseSpy {}
+    const authUseCaseSpy = new AuthusecaseSpy();
+    const sut = new LoginRouter(authUseCaseSpy);
+    const httpRequest = {
+      body: {
+        email: "valided@email.com",
+        password: "valided",
+      },
+    };
+
+    const httpResponse = sut.route(httpRequest);
+
+    expect(httpResponse.statusCode).toBe(500);
+  });
 });
