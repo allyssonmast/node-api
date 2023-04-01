@@ -4,11 +4,13 @@
  */
 
 module.exports = {
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   collectCoverage: true,
 
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
-  coverageProvider: "v8",
-};
+  coverageProvider: 'v8',
+
+  collectCoverageFrom: ['**/src/**/*.js']
+}
