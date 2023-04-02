@@ -46,7 +46,11 @@ const makeSut = () => {
   const loadUserByEmailRepositorySpy = makeLoadUserByEmailRepository()
   const tokerGeneratorSpy = makeTokerGenerator()
 
-  const sut = new AuthUseCase(loadUserByEmailRepositorySpy, encrypeterSpy, tokerGeneratorSpy)
+  const sut = new AuthUseCase({
+    loadUserByEmailRepository: loadUserByEmailRepositorySpy,
+    encrypeter: encrypeterSpy,
+    tokenGenerator: tokerGeneratorSpy
+  })
 
   return {
     sut, loadUserByEmailRepositorySpy, encrypeterSpy, tokerGeneratorSpy
@@ -75,7 +79,7 @@ describe('Auth Usecase', () => {
   })
 
   test('Should throw if LoadUserByEmailRepository is not provide', async () => {
-    const sut = new AuthUseCase()
+    const sut = new AuthUseCase({})
 
     const promisse = sut.auth('email', 'pass')
 
@@ -115,5 +119,12 @@ describe('Auth Usecase', () => {
     await sut.auth('valid_email@hotmail.com', 'password')
 
     expect(tokerGeneratorSpy.userId).toBe(loadUserByEmailRepositorySpy.user.id)
+  })
+  test('Should return an accessToken if credentials are provided', async () => {
+    const { sut, tokerGeneratorSpy } = makeSut()
+    const accessToken = await sut.auth('valid_email@hotmail.com', 'password')
+
+    expect(accessToken).toBe(tokerGeneratorSpy.accessToken)
+    expect(accessToken).toBeTruthy()
   })
 })
